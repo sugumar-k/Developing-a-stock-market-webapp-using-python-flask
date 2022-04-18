@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      
+      <!--  CSS -->
+      <link rel="stylesheet" type="text/css" href=static\css\myapp.css>
+
+ <title>
+          {% block title %}
+
+          {% endblock %}
+      </title>
+   </head>
+<body>
+       
+           <div class="navbar">
+              
+          
+            
+            
+            <a  href="{{url_for('home')}}">Home</a>
+            <a  href="{{url_for('stocks_page')}}">Stocks</a>
+            <div class="nav-right">
+               {% if current_user.is_authenticated %}
+              
+               <a  style="color: lawngreen; ">
+                        <i class="fas fa-coins"></i>
+                        {{ current_user.budget }}
+                    </a>
+            <a  href="{{url_for('account_page')}}"><i class="fas fa home"></i>{{ current_user.username }}</a>
+            <a  href="{{url_for('logout_page')}}">Logout</a>
+            {% else %}
+            <a  href="{{url_for('register_page')}}">Register</a>
+            <a  href="{{url_for('login_page')}}">Login</a>
+            {% endif %}
+            
+         </div>
+            
+            </div>
+         
+         {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+           {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      &times;
+                  </button>
+                  {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+      {% endwith %}
+         {% block content %}
+   
+          {% endblock %}
+</body>
+</html>
+
+    
+      
